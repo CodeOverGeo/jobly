@@ -1,6 +1,5 @@
 'use strict';
 
-const { query } = require('express');
 const db = require('../db');
 const { BadRequestError, NotFoundError } = require('../expressError');
 const { sqlForPartialUpdate } = require('../helpers/sql');
@@ -64,7 +63,6 @@ class Company {
     // ensure minEmployees isn't larger than maxEmployees (cause... Math); If so, throw Error
 
     if (minEmployees > maxEmployees) {
-      console.log('Error');
       throw new BadRequestError(
         'Mininum employees must be smaller than maximum employees'
       );
@@ -127,6 +125,16 @@ class Company {
     const company = companyRes.rows[0];
 
     if (!company) throw new NotFoundError(`No company: ${handle}`);
+
+    const jobsRes = await db.query(
+      `SELECT id, title, salary, equity
+       FROM jobs
+       WHERE company_handle = $1
+       ORDER BY id`,
+      [handle]
+    );
+
+    company.jobs = jobsRes.rows;
 
     return company;
   }

@@ -54,8 +54,6 @@ router.get('/', async function (req, res, next) {
   // Save optional filter queries object into variable
   let filters = req.query;
 
-  console.log(filters);
-
   //  parse string queries for min and max employees into intergers
   if (filters.minEmployees !== undefined) {
     filters.minEmployees = parseInt(filters.minEmployees);
