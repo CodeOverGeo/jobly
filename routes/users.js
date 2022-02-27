@@ -137,7 +137,8 @@ router.post(
   ensureSelfUserOrAdmin,
   async function (req, res, next) {
     try {
-      const jobId = +req.params.username;
+      const jobId = +req.params.id;
+      console.log(`JobId: ${jobId}`);
       await User.applyToJob(req.params.username, jobId);
       return res.json({ applied: jobId });
     } catch (err) {

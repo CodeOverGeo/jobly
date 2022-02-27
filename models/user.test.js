@@ -14,6 +14,7 @@ const {
   commonAfterAll,
   testJobIds,
 } = require('./_testCommon');
+const { request } = require('../app');
 
 beforeAll(commonBeforeAll);
 beforeEach(commonBeforeEach);

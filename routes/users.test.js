@@ -374,3 +374,14 @@ describe('DELETE /users/:username', function () {
     expect(resp.statusCode).toEqual(404);
   });
 });
+
+/************************************** POST /username/jobs/:id */
+
+describe('POST /users/:username/jobs/:id', function () {
+  test('works for admin', async function () {
+    const resp = await request(app)
+      .post(`/users/u1/jobs/${testJobIds[1]}`)
+      .set('authorization', `Bearer ${u2Token}`);
+    expect(resp.body).toEqual({ applied: testJobIds[1] });
+  });
+});
